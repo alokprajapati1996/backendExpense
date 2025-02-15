@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .bottom{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="res"></h1>
+    <h1>Password Reset</h1>
+    <p>Email: <%= email %></p>
+    <div>
+
+        <form action="">
+        <input type="password" placeholder="Enter your password...." name="password" id="password"/>
+        <br/>
+        <input type="password" placeholder="Enter your confirm password...." name="confirmPassword" id="confirmPassword"/><br/>
+        <input type="submit" onclick="handleSubmit(event)" value="submit"></input>
+    </form>
+
+    <div class="bottom">
+        <button onclick="handleLogin()" id="btnLogin">Login again</button>
+    </div>
+    <script>
+        let resTag = document.querySelector('#res')
+        let token = "<%=token %>"
+        let id = "<%=id %>"
+        console.log(token)
+        console.log(id)
+        let passTag = document.querySelector('#password')
+        let cPassTag = document.querySelector('#confirmPassword')
+       async function handleSubmit(e){
+            e.preventDefault();
+            console.log("hello")
+            let obj = {
+                password:passTag.value,
+                confirmPassword:cPassTag.value
+            }
+            let res = await fetch(`http://localhost:8080/member/resent/${id}/${token}`,{
+                method:'POST',
+                headers:{
+                    'content-type':'application/json'
+                },
+                body:JSON.stringify(obj)
+            })
+
+            let data = await res.json();
+            console.log(data)
+            if(data.success===true){
+                resTag.innerHTML = data.msg
+                resTag.style.color = 'green'
+                document.querySelector('.bottom').style.display = "block"
+            }
+            else{
+
+            }
+
+        }
+
+        const handleLogin = ()=>{
+            window.location.href = "http://localhost:5173/login"
+        }
+    </script>
+    </div>
+</body>
+</html>
