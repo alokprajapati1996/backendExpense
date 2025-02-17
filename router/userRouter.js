@@ -10,7 +10,7 @@ router.post('/signup',registerUser)
 router.put("/updateUser/:id",userUpdate)
 router.delete("/deleteUser/:id",userDelete)
 router.get("/allUser",getAllUser)
-router.post('/searchByEmail',userSearchByEmail)
+
  router.post("/password-reset",userForgetePassword)
  router.get("/resent/:id/:token",userResetPassword)
  router.post("/resent/:id/:token",resetPassword)

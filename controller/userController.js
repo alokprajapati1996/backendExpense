@@ -2,7 +2,7 @@
 const express=require("express")
 const app=express()
 const User = require('../modles/UserModle');
-const bcrypt=require('bcrypt')
+const bcrypt=require('bcryptjs')
  const jwt = require('jsonwebtoken');
 const transporter = require('../utils/configEmail');
 
@@ -119,19 +119,6 @@ try {
     console.error("deletaion failld :",error)
 }
 };
-const userSearchByEmail=async(req,res)=>{
-    const {email}=req.body;
-    try {
-        const user=await User.findOne({email});
-        if(!user){
-            return res.status(400).json({msg:"user not regiser!",success:false}) 
-        }
-        return res.status(200).json({msg:"user allready register!",user,success:true})
-    } catch (error) {
-        console.error("user failld :",error)
-        return res.status(404).json({msg:"user failld!",succes:false})
-    }
-    };
 
 
 const userForgetePassword=async(req,res)=>{
@@ -245,4 +232,4 @@ const resetPassword = async (req, res) => {
 
 
 module.exports = { registerUser, loginUser,userUpdate,userDelete ,
-    getAllUser,userSearchByEmail, userForgetePassword,userResetPassword,resetPassword};
+    getAllUser,userForgetePassword,userResetPassword,resetPassword};
