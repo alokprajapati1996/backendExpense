@@ -16,9 +16,9 @@ connectDB()
 app.use(express.json());
 app.use(urlencoded({extended:true}))
 //app.use(bodyParser.json())
-const allwdOrigin=['http://localhost:5173']
+// const allwdOrigin=['http://localhost:5173']
 //{origin:allwdOrigin,credentials:true}
-app.use(cors({origin:allwdOrigin,credentials:true}))
+app.use(cors())
 app.use("/member",userRouter)
 app.use("/myExpence",expenceRouter)
 // app.use('/auth', authRoutes);
